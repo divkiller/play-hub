@@ -7,6 +7,7 @@ import { Genre } from './hooks/useGenres';
 import PlatformSelector from './components/PlatformSelector';
 import { Platform } from './hooks/useGames';
 import SortSelector from './components/sortSelector';
+import GameHeading from './components/GameHeading';
 
 export interface GameQuery {
     genre: Genre | null;
@@ -47,22 +48,25 @@ const App = () => {
                 </GridItem>
             </Show>
             <GridItem area="main">
-                <Flex marginBottom={4} paddingLeft={2}>
-                    <Box marginRight={5}>
-                        <PlatformSelector
-                            selectedPlatform={gameQuery.platform}
-                            onSelectPlatform={(platform) =>
-                                setGameQuery({ ...gameQuery, platform })
+                <Box paddingLeft={2}>
+                    <GameHeading gameQuery={gameQuery} />
+                    <Flex marginBottom={4}>
+                        <Box marginRight={5}>
+                            <PlatformSelector
+                                selectedPlatform={gameQuery.platform}
+                                onSelectPlatform={(platform) =>
+                                    setGameQuery({ ...gameQuery, platform })
+                                }
+                            />
+                        </Box>
+                        <SortSelector
+                            sortOrder={gameQuery.sortOrder}
+                            onSelecSortOrder={(sortOrder) =>
+                                setGameQuery({ ...gameQuery, sortOrder })
                             }
                         />
-                    </Box>
-                    <SortSelector
-                        sortOrder={gameQuery.sortOrder}
-                        onSelecSortOrder={(sortOrder) =>
-                            setGameQuery({ ...gameQuery, sortOrder })
-                        }
-                    />
-                </Flex>
+                    </Flex>
+                </Box>
                 <GameGrid gameQuery={gameQuery} />
             </GridItem>
         </Grid>
